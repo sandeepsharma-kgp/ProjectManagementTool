@@ -33,4 +33,13 @@ public class ProjectController {
         Project project1 = projectService.saveOrUpdate(project);
         return new ResponseEntity<Project>(project, HttpStatus.CREATED);
     }
+
+    @GetMapping("/{projectId}")
+    public ResponseEntity<?> getProjectById(@PathVariable String projectId) {
+        Project project = projectService.findProjectByIdentifier(projectId);
+        return new ResponseEntity<Project>(project,HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public Iterable<Project> getAllProjects(){ return projectService.findAllProject();}
 }
