@@ -1,6 +1,5 @@
 import axios from "axios";
-import { GET_ERRORS } from "./types";
-import { createStore } from "redux";
+import { GET_ERRORS, GET_PROJECTS } from "./types";
 
 const createProject = (project, history) => async dispatch => {
   try {
@@ -13,5 +12,13 @@ const createProject = (project, history) => async dispatch => {
     });
   }
 };
+
+export const getProjects = () => async dispatch => {
+  const res = await axios.get("http://localhost:8080/api/project/all")
+  dispatch({
+    type: GET_PROJECTS,
+    payload: res.data
+  })
+}
 
 export default createProject
