@@ -7,11 +7,12 @@ import Proptypes from "prop-types"
 
 class Dashboard extends Component {
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.getProjects();
   }
 
   render() {
+    const { projects } = this.props.project
     return (
       <div class="projects">
         <div class="container">
@@ -22,8 +23,9 @@ class Dashboard extends Component {
               <CreateProjectButton />
               <br />
               <hr />
-
-              <ProjectItem />
+              {projects.map(project => (
+                <ProjectItem key={project.id} project={project} />
+              ))}
             </div>
           </div>
         </div>
@@ -33,12 +35,12 @@ class Dashboard extends Component {
 }
 
 Dashboard.propTypes = {
-  project: Proptypes.object.isRequired,
-  getProjects: Proptypes.func.isRequired
+  getProjects: Proptypes.func.isRequired,
+  project: Proptypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-  project:state.project
-})
+  project: state.project
+});
 
-export default connect(mapStateToProps,{getProjects})(Dashboard);
+export default connect(mapStateToProps, { getProjects })(Dashboard);
