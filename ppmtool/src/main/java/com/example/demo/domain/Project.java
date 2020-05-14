@@ -1,6 +1,8 @@
 package com.example.demo.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -31,19 +33,12 @@ public class Project {
     private Date end_date;
 
     @JsonFormat(pattern = "yyyy-mm-dd")
-    private Date createdAt;
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private Date created_At;
     @JsonFormat(pattern = "yyyy-mm-dd")
-    private Date updatedAt;
-
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = new Date();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = new Date();
-    }
+    @UpdateTimestamp
+    private Date updated_At;
 
     public Project() {
     }
@@ -96,19 +91,19 @@ public class Project {
         this.end_date = end_date;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public Date getCreated_At() {
+        return created_At;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    public void setCreated_At(Date created_At) {
+        this.created_At = created_At;
     }
 
-    public Date getUpdatedAt() {
-        return updatedAt;
+    public Date getUpdated_At() {
+        return updated_At;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setUpdated_At(Date updated_At) {
+        this.updated_At = updated_At;
     }
 }
